@@ -1,0 +1,137 @@
+openapi: 3.0.0
+
+info:
+  title: UnaHur Anti Social Net
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+
+  /users:
+
+    get:
+      summary: Obtener usuarios
+
+      responses:
+        200:
+          description: Lista de usuarios
+
+    post:
+      summary: Crear usuario
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              properties:
+                nickName:
+                  type: string
+
+                email:
+                  type: string
+
+                password:
+                  type: string
+
+      responses:
+        201:
+          description: Usuario creado
+
+  /posts:
+
+    get:
+      summary: Obtener posts
+
+      responses:
+        200:
+          description: Lista de posts
+
+    post:
+      summary: Crear post
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              properties:
+                description:
+                  type: string
+
+                UserId:
+                  type: integer
+
+      responses:
+        201:
+          description: Post creado
+
+  /comments:
+
+    get:
+      summary: Obtener comentarios
+
+      responses:
+        200:
+          description: Lista de comentarios
+
+    post:
+      summary: Crear comentario
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              properties:
+                content:
+                  type: string
+
+                UserId:
+                  type: integer
+
+                PostId:
+                  type: integer
+
+      responses:
+        201:
+          description: Comentario creado
+
+  /tags:
+
+    get:
+      summary: Obtener tags
+
+      responses:
+        200:
+          description: Lista de tags
+
+    post:
+      summary: Crear tag
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              properties:
+                name:
+                  type: string
+
+      responses:
+        201:
+          description: Tag creada
