@@ -1,0 +1,63 @@
+Table users {
+  nickName varchar [pk, unique, note: 'Identificador principal']
+  email varchar [unique, not null]
+  password varchar [not null]
+  created_at timestamp
+}
+
+Table posts {
+  id integer [pk, increment]
+  nickName varchar [ref: > users.nickName] // FK a users
+  description text
+  created_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (nickName, created_at) [name: 'idx_user_posts']
+    (created_at) [name: 'idx_posts_date']
+  }
+}
+
+Table posts_images {
+  id integer [pk, increment]
+  id_post varchar [ref: > posts.nickName] // FK al post
+  url_img text [not null]
+  created_at timestamp
+
+  indexes {
+    (id_post) [unique, name: 'idx_unique_image_order']
+    (id_post) [name: 'idx_post_images']
+  }
+
+}
+
+Table comments {
+  id integer [pk, increment]
+  nickName varchar [ref: > users.nickName]
+  id_post integer [ref: > posts.id]
+  content text
+  created_at timestamp
+  is_visible boolean
+
+  indexes {
+    (id_post, created_at) [name: 'idx_comments_post_date']
+  }
+}
+
+Table tags {
+  id integer [pk]
+  name varchar [unique]
+}
+
+Table post_tags {
+  id_post integer [ref: > posts.id]
+  id_tag integer [ref: > tags.id]
+
+   indexes {
+    (id_post, id_tag) [unique, name: 'idx_unique_post_tag']
+    (id_tag) [name: 'idx_tag_posts']
+  }
+}
+ //// Relacoines entre tablas son definifas con [ref: ]
+ //// DIagrama hecho con dbdiagram.io 
+
