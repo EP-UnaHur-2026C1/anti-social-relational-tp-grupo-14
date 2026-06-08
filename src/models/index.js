@@ -1,22 +1,22 @@
 const sequelize = require("../config/database")
 
-const User = require("./User")
-const Post = require("./Post")
-const Comment = require("./Comment")
-const Tag = require("./Tag")
-const PostImage = require("./PostImage")
+const User = require("./user")
+const Post = require("./post")
+const Comment = require("./comment")
+const Tag = require("./tag")
+const PostImage = require("./postimage")
 
-User.hasMany(Post)
-Post.belongsTo(User)
+User.hasMany(Post, { foreignKey: 'nickName' })
+Post.belongsTo(User , { foreignKey: 'nickName' })
 
-User.hasMany(Comment)
-Comment.belongsTo(User)
+User.hasMany(Comment, { foreignKey: 'nickName' })
+Comment.belongsTo(User, { foreignKey: 'nickName' })
 
-Post.hasMany(Comment)
-Comment.belongsTo(Post)
+Post.hasMany(Comment, { foreignKey: 'postId' })
+Comment.belongsTo(Post, { foreignKey: 'postId' })
 
-Post.hasMany(PostImage)
-PostImage.belongsTo(Post)
+Post.hasMany(PostImage, { foreignKey: 'postId' })
+PostImage.belongsTo(Post, { foreignKey: 'postId' })
 
 Post.belongsToMany(Tag, { through: "PostTags" })
 Tag.belongsToMany(Post, { through: "PostTags" })
@@ -29,7 +29,7 @@ module.exports = {
     Tag,
     PostImage
 }
-
+/* esto es de followers 
 User.belongsToMany(User, {
     through: "Followers",
     as: "following",
@@ -42,4 +42,4 @@ User.belongsToMany(User, {
     as: "followers",
     foreignKey: "followingId",
     otherKey: "followerId"
-})
+}) */

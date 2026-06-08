@@ -4,6 +4,7 @@ const sequelize = require("../config/database")
 const User = sequelize.define("User", {
     nickName: {
         type: DataTypes.STRING,
+        primaryKey: true,
         unique: true,
         allowNull: false
     },
