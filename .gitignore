@@ -1,0 +1,11 @@
+node_modules/
+database.sqlite
+*.sqlite
+.vscode/
+src/uploads/
+uploads/
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db

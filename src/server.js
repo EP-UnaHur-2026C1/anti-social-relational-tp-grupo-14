@@ -24,25 +24,18 @@ const swaggerDocument = YAML.load("./src/swagger/swagger.yaml")
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.get("/", (req, res) => {
-    res.send("Servidor funcionando")
-})
+app.get("/", (req, res) => {res.send("Servidor funcionando")})
 
 app.use("/users", usersRoutes)
 app.use("/posts", postsRoutes)
 app.use("/comments", commentsRoutes)
 app.use("/tags", tagsRoutes)
 
-sequelize.sync({ alter: true })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Servidor corriendo en puerto ${process.env.PORT}`)
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+  sequelize.sync() //antes tenia alter true pero andaba mal
+  console.log(`Servidor corriendo en puerto ${PORT}`) 
 })
 
-app.get("/", (req, res) => {
-    res.send("Servidor funcionando")
-})
-
-app.listen(3000, () => {
-    console.log("Servidor corriendo en puerto 3000")
-})
